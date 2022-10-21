@@ -111,11 +111,11 @@ div.text-content {
   position: absolute;
   bottom: 0;
   width: 100%;
-  font-size: 1.8em;
+  font-size: 1.5em;
   display: flex;
-  padding: 0.875em 18%;
+  padding-block: 0.875em;
   align-content: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .social-media svg {

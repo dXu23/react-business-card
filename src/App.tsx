@@ -1,8 +1,10 @@
 import './App.css';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, RefObject } from 'react';
 
 import laura_smith from './assets/laura_smith.png';
+
+import { IconName } from '@fortawesome/fontawesome-common-types';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -10,6 +12,7 @@ import {
   fab,
   faTwitter,
   faFacebookSquare,
+  faGithubSquare,
   faInstagram,
   faFacebook,
   faLinkedin,
@@ -39,8 +42,8 @@ function ProfileMain() {
         <h6>laurasmith.website</h6>
       </div>
       <div className="contact">
-        <div className="email clickable"><FontAwesomeIcon icon={["fa-solid", "fa-envelope"]} />&nbsp; Email</div>
-        <div className="linkedin clickable"><FontAwesomeIcon icon={["fa-brands", "fa-linkedin"]} />&nbsp; LinkedIn</div>
+        <div className="email clickable"><FontAwesomeIcon icon={["fas", "envelope"]} />&nbsp; Email</div>
+        <div className="linkedin clickable"><FontAwesomeIcon icon={["fab", "linkedin"]} />&nbsp; LinkedIn</div>
       </div>
       <div className="info">
         <h3>About</h3>
@@ -62,7 +65,7 @@ function ProfileMain() {
   );
 }
 
-function useHover() {
+function useHover(): [boolean, RefObject<SVGSVGElement> ] {
     const [isHover, setIsHover] = useState(false);
 
     function enter() {
@@ -73,14 +76,14 @@ function useHover() {
         setIsHover(false);
     }
 
-    const ref = useRef(null);
+    const ref = useRef<SVGSVGElement>(null);
     useEffect(() => {
-        ref.current.addEventListener('mouseenter', enter);
-        ref.current.addEventListener('mouseleave', leave);
+        ref.current?.addEventListener('mouseenter', enter);
+        ref.current?.addEventListener('mouseleave', leave);
 
         return (() => {
-            ref.current.removeEventListener('mouseenter', enter);
-            ref.current.removeEventListener('mouseleave', leave);
+            ref.current?.removeEventListener('mouseenter', enter);
+            ref.current?.removeEventListener('mouseleave', leave);
         });
     });
 
@@ -89,21 +92,21 @@ function useHover() {
 
 
 interface BrandIconProps {
-    iconString: string;
+    iconString: IconName;
 };
 
 function BrandIcon({ iconString }: BrandIconProps) {
     const [ isHover, ref ] = useHover();
-    return <FontAwesomeIcon icon={["fa-brands", iconString]} size="1.5x" ref={ref} inverse={isHover} className="clickable"/>
+    return <FontAwesomeIcon icon={["fab", iconString]} size="1x" ref={ref} inverse={isHover} className="clickable"/>
 }
 
 function SocialMedia() {
   return (
     <div className="social-media">
-      <BrandIcon iconString="fa-twitter-square" />
-      <BrandIcon iconString="fa-facebook-square" />
-      <BrandIcon iconString="fa-instagram-square" />
-      <BrandIcon iconString="fa-github-square" />
+      <BrandIcon iconString="twitter-square" />
+      <BrandIcon iconString="facebook-square" />
+      <BrandIcon iconString="instagram-square" />
+      <BrandIcon iconString="github-square" />
     </div>
   );
 }
